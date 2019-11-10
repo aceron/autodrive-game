@@ -44,7 +44,7 @@ predict = False
 home_folder = "/home/user0/autodrive-game/"
 sample_count = 0
 
-# Get window for sending key events to a window
+# Get window id for sending key events to the application window
 print(len(xdo.search_windows(win_name.encode())))
 win_id = xdo.search_windows(win_name.encode())[0]
 print("WIN ID:" + str(win_id))
@@ -57,7 +57,7 @@ pygame.display.set_caption('Driving')
 joy_keys = []
 joy_keys.append(0)#accel
 joy_keys.append(0)#break
-joy_keys.append(0)#jump
+joy_keys.append(0)#sharp turn (not used for training)
 joy_keys.append(0)#left
 joy_keys.append(0)#right
 
@@ -133,6 +133,7 @@ while True:
             idle_counter = idle_counter - 1
             y_pred_t[0]=5
 
+        # Reset the idle counter
         if(idle_counter<0):
             idle_counter = 0
 
@@ -239,7 +240,8 @@ while True:
                 
                 for key in keys_to_release: xdo.send_keysequence_window_up(win_id, key.encode())
 
-    sample_count = sample_count + 1 # keep track of how many frames we have taken so far
+    # Keep track of how many frames we have taken so far
+    sample_count = sample_count + 1
 
     # Store previous frames for future predictions
     prev_prev_frame = prev_frame.copy()
