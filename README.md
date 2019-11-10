@@ -5,8 +5,35 @@ Educational purpose code from training a NN to control a racing game
   - This is a code that was generated to practice the basics of training a NN and use the predictions on a demo application.
   - The demo application is to make automatic control of a game character in a racing game.
   - The inputs for the NN are images samples taken from the game screen and the key presses representing actions corresponding to a certain game state represented by the screen.
-  - The actions are used to categorize the screen samples into the following actions: IDLE, ACCEL, LEFT, RIGHT, LEFT+ACCEL and RIGHT+ACCEL
-  - For the training, the samples are 3 images concatenated together in an attempt to represent game state sequences, which lead to certain actions to take (i.e. key presses)
+  - The key presses are used to categorize the screen samples into the following actions: IDLE, ACCEL, LEFT, RIGHT, LEFT+ACCEL and RIGHT+ACCEL
+  - For the training, the samples are 3 images concatenated together in an attempt to represent the game state sequences which lead to take certain actions (i.e. key presses)
+  - The tests were run under Ubuntu 16.04 and Python 3.5
+  
+- Programs:
+  - cap-screen-game.py:
+    - Capture frames from a region of the screen
+    - Manipulates the captured frame for displaying it
+    - Displays the captured frames
+    - Listens and records key-events (press and release)
+    - Sends key presses to a window (i.e. the game window)
+    - Saves the logged image frames and key events
+  - train-from-samples.ipynb:
+    - Loads the saved image frames and key events
+    - Concatenates 3 consecutive frames to provide a sequence (i.e. samples)
+    - Assigns categories to the samples based on the corresponding recorded key-events
+    - Builds a NN model
+    - Trains the model using the samples
+    - Saves the model and its weights
+  - pred-screen-game.py:
+    - Loads the trained model
+    - Capture frames from a region of the screen
+    - Manipulates the captured frame
+    - Creates the image sequences
+    - Displays the image sequences
+    - Inputs the sequence into the NN model
+    - Predicts an action
+    - Converts the action into key events
+    - Sends the key events to a window (i.e. the game window)
 
 - Test settings:
   - Game: Wacky Wheels Version 1.1 Shareware Release
