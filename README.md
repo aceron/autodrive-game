@@ -34,7 +34,7 @@ Educational purpose code from training a NN to control a racing game
   - Batch size:	175
   - Validation split: 0.25
   - Total Epochs: 46
-  - NN Structure: Please refer to the "Read game samples" notebook
+  - NN Structure: Please refer to the "train-from-samples" notebook
 
 - Results:
 
