@@ -30,7 +30,7 @@ button_delay = 0.2
 dir_name = ""
 sample_count = 0
 
-# Get window for capturing sample
+# Get window for sending key events to a window
 print(len(xdo.search_windows(win_name.encode())))
 win_id = xdo.search_windows(win_name.encode())[0]
 print("WIN ID:" + str(win_id))
