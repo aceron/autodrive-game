@@ -30,7 +30,7 @@ button_delay = 0.2
 dir_name = ""
 sample_count = 0
 
-# Get window for sending key events to a window
+# Get window id for sending key events to the application window
 print(len(xdo.search_windows(win_name.encode())))
 win_id = xdo.search_windows(win_name.encode())[0]
 print("WIN ID:" + str(win_id))
@@ -43,7 +43,7 @@ pygame.display.set_caption('Training')
 joy_keys = []
 joy_keys.append(0)#accel
 joy_keys.append(0)#break
-joy_keys.append(0)#shoot
+joy_keys.append(0)#sharp turn (not used now for training)
 joy_keys.append(0)#left
 joy_keys.append(0)#right
 
@@ -108,7 +108,6 @@ while True:
 
         # Register key up events
         if event.type == pygame.KEYUP:
-            #print("UP: " + str(event.key))
             if(event.key == 122): # Z key
                 joy_keys[0] = 0
             if(event.key == 97): # A key
