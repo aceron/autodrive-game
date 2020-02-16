@@ -1,17 +1,18 @@
 # Sample program for capturing image frames + key presses from a game window
 # Outputs are JPEG images and CSV files
 
-# Import libraries:
-import numpy as np
-import cv2
-from mss import mss
+# Import general use libraries:
+import sys
+import os
 import time
 import datetime
-import os
+import numpy as np
+
+# Import libraries for data input/output:
+import cv2
+from mss import mss
 from xdo import Xdo
-from pynput.keyboard import Key
 import pygame
-import sys
 
 # Library initialization
 xdo = Xdo()
@@ -21,17 +22,18 @@ sct = mss()
 # Screen Settings:
 display_width = 640
 display_height = 400
+x_coord = 5
+y_coord = 70
 
 # General variables:
 record = False
 win_name = "GAMEWINDOWNAME"
-cords = {'top':70 , 'left': 5 , 'width': display_width, 'height': display_height }
+win_props = {'top': y_coord, 'left': x_coord, 'width': display_width, 'height': display_height }
 button_delay = 0.2
 dir_name = ""
 sample_count = 0
 
 # Get window id for sending key events to the application window
-print(len(xdo.search_windows(win_name.encode())))
 win_id = xdo.search_windows(win_name.encode())[0]
 print("WIN ID:" + str(win_id))
 
@@ -43,27 +45,20 @@ pygame.display.set_caption('Training')
 joy_keys = []
 joy_keys.append(0)#accel
 joy_keys.append(0)#break
-joy_keys.append(0)#sharp turn (not used now for training)
+joy_keys.append(0)#sharp turn (not used for training at the moment)
 joy_keys.append(0)#left
 joy_keys.append(0)#right
-
-# Helper callbacks
-def on_key_press(key):
-    print(key)
-
-def on_key_release(key):
-    print(key)
 
 # Main loop
 time.sleep(1)
 start_time = time.time()
 while True:
     # Timestamp for sample name
-    d = datetime.datetime.utcnow().isoformat("T") + "Z" # <- get time in UTC
+    d = datetime.datetime.utcnow().isoformat("T") + "Z" # get time in UTC
     file_name = d.replace(":","-")
     
     # Capture image sample
-    img = np.array(sct.grab(cords))
+    img = np.array(sct.grab(win_props))
     height, width, depth = img.shape
 
     # Downsize sample for displaying it in monitoring window
